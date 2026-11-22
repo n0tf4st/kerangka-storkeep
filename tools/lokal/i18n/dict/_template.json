@@ -1,0 +1,120 @@
+{
+  "name": "<Language name>",
+  "note": "Pairs are [from, to]. Translate only the 'to' side when copying this file for a new language.",
+  "source": [
+    [
+      "sumber   :",
+      ""
+    ],
+    [
+      "aplikasi :",
+      ""
+    ],
+    [
+      "'catatan  :'",
+      ""
+    ],
+    [
+      "'riwayat  :'",
+      ""
+    ],
+    [
+      "'kandidat :'",
+      ""
+    ],
+    [
+      "catatan: ${satu}",
+      ""
+    ],
+    [
+      "model tidak terdeteksi — set env AGENT_MODEL=<nama model>",
+      ""
+    ],
+    [
+      "copilot dilewati: jejak ",
+      ""
+    ],
+    [
+      "usageHistory 9router dilewati: ",
+      ""
+    ],
+    [
+      "thread Zed dilewati: ",
+      ""
+    ],
+    [
+      "node:sqlite tidak tersedia di Node ",
+      ""
+    ],
+    [
+      " — sumber ",
+      ""
+    ],
+    [
+      " dilewati`",
+      ""
+    ],
+    [
+      " jam`);",
+      ""
+    ],
+    [
+      "sesi baru (deteksi otomatis)",
+      ""
+    ],
+    [
+      "dilewati   : entri ",
+      ""
+    ],
+    [
+      " WIB sudah ada",
+      ""
+    ],
+    [
+      "tercatat   : ",
+      ""
+    ],
+    [
+      "gagal catat: ",
+      ""
+    ],
+    [
+      "Catatan sesi model per proyek. Format: ",
+      ""
+    ],
+    [
+      "keterangan — Model: <nama>",
+      ""
+    ]
+  ],
+  "tests": [
+    [
+      "model dengan namespace provider dikenali",
+      ""
+    ],
+    [
+      "namespace aplikasi menang atas vendor",
+      ""
+    ],
+    [
+      "namespace tak dikenal dilewati, vendor tetap dikenali",
+      ""
+    ],
+    [
+      "model tanpa namespace tidak punya provider",
+      ""
+    ],
+    [
+      "platform hanya dari aplikasi sumber, bukan provider",
+      ""
+    ],
+    [
+      "aplikasi dibaca dari env terminal",
+      ""
+    ],
+    [
+      "pemetaan nama platform dan provider",
+      ""
+    ]
+  ]
+}

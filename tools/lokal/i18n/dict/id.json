@@ -1,0 +1,120 @@
+{
+  "name": "Bahasa Indonesia",
+  "note": "Pairs are [from, to]. Translate only the 'to' side when copying this file for a new language.",
+  "source": [
+    [
+      "source   :",
+      "sumber   :"
+    ],
+    [
+      "host app :",
+      "aplikasi :"
+    ],
+    [
+      "'notes    :'",
+      "'catatan  :'"
+    ],
+    [
+      "'history  :'",
+      "'riwayat  :'"
+    ],
+    [
+      "'candidates:'",
+      "'kandidat :'"
+    ],
+    [
+      "note: ${satu}",
+      "catatan: ${satu}"
+    ],
+    [
+      "model not detected — set env AGENT_MODEL=<model name>",
+      "model tidak terdeteksi — set env AGENT_MODEL=<nama model>"
+    ],
+    [
+      "copilot skipped: ",
+      "copilot dilewati: jejak "
+    ],
+    [
+      "usageHistory 9router skipped: ",
+      "usageHistory 9router dilewati: "
+    ],
+    [
+      "Zed thread skipped: ",
+      "thread Zed dilewati: "
+    ],
+    [
+      "node:sqlite unavailable on Node ",
+      "node:sqlite tidak tersedia di Node "
+    ],
+    [
+      " — source ",
+      " — sumber "
+    ],
+    [
+      " skipped`",
+      " dilewati`"
+    ],
+    [
+      "h old`);",
+      " jam`);"
+    ],
+    [
+      "new session (auto-detected)",
+      "sesi baru (deteksi otomatis)"
+    ],
+    [
+      "skipped    : entry ",
+      "dilewati   : entri "
+    ],
+    [
+      " WIB already exists",
+      " WIB sudah ada"
+    ],
+    [
+      "recorded   : ",
+      "tercatat   : "
+    ],
+    [
+      "write failed: ",
+      "gagal catat: "
+    ],
+    [
+      "Session & model log. Format: ",
+      "Catatan sesi model per proyek. Format: "
+    ],
+    [
+      "note — Model: <name>",
+      "keterangan — Model: <nama>"
+    ]
+  ],
+  "tests": [
+    [
+      "model with a provider namespace is recognised",
+      "model dengan namespace provider dikenali"
+    ],
+    [
+      "app namespace wins over the vendor",
+      "namespace aplikasi menang atas vendor"
+    ],
+    [
+      "unknown namespace is skipped, vendor still recognised",
+      "namespace tak dikenal dilewati, vendor tetap dikenali"
+    ],
+    [
+      "model without a namespace has no provider",
+      "model tanpa namespace tidak punya provider"
+    ],
+    [
+      "platform comes only from the source app, not the provider",
+      "platform hanya dari aplikasi sumber, bukan provider"
+    ],
+    [
+      "host app is read from terminal env",
+      "aplikasi dibaca dari env terminal"
+    ],
+    [
+      "platform and provider name mapping",
+      "pemetaan nama platform dan provider"
+    ]
+  ]
+}

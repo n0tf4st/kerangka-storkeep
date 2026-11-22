@@ -11,7 +11,7 @@ function argValue(name, fallback) {
 function listDictionaries() {
   if (!existsSync(DICT_DIR)) return [];
   return readdirSync(DICT_DIR)
-    .filter((name) => name.endsWith('.json'))
+    .filter((name) => name.endsWith('.json') && !name.startsWith('_'))
     .map((name) => name.replace(/\.json$/, ''))
     .sort();
 }
@@ -21,6 +21,37 @@ const available = listDictionaries();
 if (process.argv.includes('--list')) {
   console.log(available.length ? available.join('\n') : 'no dictionaries found');
   process.exit(available.length ? 0 : 2);
+}
+
+const scaffold = argValue('scaffold', null);
+
+if (scaffold) {
+  const basePath = join(DICT_DIR, 'en.json');
+  const targetPath = join(DICT_DIR, `${scaffold}.json`);
+
+  if (existsSync(targetPath)) {
+    console.log(`dictionary already exists: ${targetPath}`);
+    process.exit(2);
+  }
+
+  if (!existsSync(basePath)) {
+    console.log(`base dictionary missing: ${basePath}`);
+    process.exit(2);
+  }
+
+  const base = JSON.parse(readFileSync(basePath, 'utf8'));
+
+  const dibuat = {
+    name: `${scaffold} (fill in)`,
+    note: base.note,
+    source: base.source.map(([from]) => [from, from]),
+    tests: base.tests.map(([from]) => [from, from]),
+  };
+
+  writeFileSync(targetPath, `${JSON.stringify(dibuat, null, 2)}\n`, 'utf8');
+  console.log(`created ${targetPath}`);
+  console.log(`next: replace every right-hand string, then run --to=${scaffold} --in=<file> --out=<file>`);
+  process.exit(0);
 }
 
 const target = argValue('to', 'en');
