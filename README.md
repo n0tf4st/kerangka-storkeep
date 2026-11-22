@@ -56,3 +56,21 @@ git-exclude-template.txt
 - Changelog: header versi sekali tulis, poin `A.`/`A.1.`, model + jam WIB per poin.
 - Rahasia hanya di `env/` atau dashboard platform — tidak di `.agents/` dan tidak di kode.
 - Tool dipakai ulang, bukan skrip sementara berulang.
+
+## Dipakai di perangkat lain
+
+```sh
+git clone git@github.com:n0tf4st/kerangka-storkeep.git "D:/web/kerangka storkeep"
+```
+
+Setelah clone, di perangkat itu:
+
+1. `node tools/lokal/model/deteksi.mjs --catat` — memastikan tool jalan dan mencatat sesi (butuh Node 20+).
+2. Buka proyek baru, salin `AGENTS.md` (dan bootstrap `.agents/` lewat langkah 2 di dalamnya).
+3. Minta agent: _"Baca AGENTS.md, lalu tanya saya model, jenis proyek, framework, ekstensi file, database, dan target deploy."_
+
+Tidak perlu kredensial apa pun untuk memakai kerangka — alat deteksi model hanya membaca jejak sesi editor di mesin setempat.
+
+## Lisensi
+
+MIT — lihat `LICENSE`. Template ini bebas dipakai, diubah, dan dibagikan.
