@@ -52,6 +52,7 @@ git-exclude-template.txt  copy to .git/info/exclude
 ├── samples/README.md     bug reproduction material
 └── temp/README.md        one-off scripts (delete after use)
 tools/lokal/model/        detect.mjs (detect + log model), detect.test.mjs
+tools/lokal/i18n/         translate.mjs + dict/en.json (dictionary-based translation)
 tools/lokal/structure/    check.mjs (structure guard)
 ```
 

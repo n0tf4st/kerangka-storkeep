@@ -1,0 +1,36 @@
+{
+  "name": "English",
+  "note": "Pairs are [from, to]. Translate only the 'to' side when copying this file for a new language.",
+  "source": [
+    ["sumber   :", "source   :"],
+    ["aplikasi :", "host app :"],
+    ["'catatan  :'", "'notes    :'"],
+    ["'riwayat  :'", "'history  :'"],
+    ["'kandidat :'", "'candidates:'"],
+    ["catatan: ${satu}", "note: ${satu}"],
+    ["model tidak terdeteksi — set env AGENT_MODEL=<nama model>", "model not detected — set env AGENT_MODEL=<model name>"],
+    ["copilot dilewati: jejak ", "copilot skipped: "],
+    ["usageHistory 9router dilewati: ", "usageHistory 9router skipped: "],
+    ["thread Zed dilewati: ", "Zed thread skipped: "],
+    ["node:sqlite tidak tersedia di Node ", "node:sqlite unavailable on Node "],
+    [" — sumber ", " — source "],
+    [" dilewati`", " skipped`"],
+    [" jam`);", "h old`);"],
+    ["sesi baru (deteksi otomatis)", "new session (auto-detected)"],
+    ["dilewati   : entri ", "skipped    : entry "],
+    [" WIB sudah ada", " WIB already exists"],
+    ["tercatat   : ", "recorded   : "],
+    ["gagal catat: ", "write failed: "],
+    ["Catatan sesi model per proyek. Format: ", "Session & model log. Format: "],
+    ["keterangan — Model: <nama>", "note — Model: <name>"]
+  ],
+  "tests": [
+    ["model dengan namespace provider dikenali", "model with a provider namespace is recognised"],
+    ["namespace aplikasi menang atas vendor", "app namespace wins over the vendor"],
+    ["namespace tak dikenal dilewati, vendor tetap dikenali", "unknown namespace is skipped, vendor still recognised"],
+    ["model tanpa namespace tidak punya provider", "model without a namespace has no provider"],
+    ["platform hanya dari aplikasi sumber, bukan provider", "platform comes only from the source app, not the provider"],
+    ["aplikasi dibaca dari env terminal", "host app is read from terminal env"],
+    ["pemetaan nama platform dan provider", "platform and provider name mapping"]
+  ]
+}
