@@ -34,13 +34,35 @@ Template kerangka Storkeep. Ganti semua `<...>` sebelum dipakai.
    `OPERASI.MD` / `CHANGELOG.MD` tidak ada. Tool `tools/lokal/model/deteksi.mjs` ikut tersalin,
    jadi deteksi model bisa langsung jalan. Untuk repo baru, salin juga
    `git-exclude-template.txt` → `.git/info/exclude`.
-3. **Jika proyek masih kosong** (belum ada kode), tanya **sekaligus** sebelum menulis file:
-   - Jenis proyek: bot Telegram / web API / web UI / CLI / worker / library / scraper
-   - Framework/runtime: grammY · Express · Hono · Next.js · FastAPI · tanpa framework
-   - Bahasa + ekstensi: `.mjs` · `.js` · `.ts` · `.py` · `.php`
-   - Database: MySQL/MariaDB · Postgres · SQLite · tanpa DB
-   - Deploy: VPS systemd · Heroku · Cloudflare · lokal saja
+3. **Jika proyek masih kosong** (belum ada kode), tanya **sekaligus** — salin daftar berikut, user boleh pilih atau menyebut di luar daftar:
+
+   - **Jenis proyek**: bot chat (Telegram/Discord/Slack/WhatsApp) · REST/GraphQL API · web UI/SSR · CLI · worker/queue · scraper · library/SDK · desktop · mobile · IoT
+   - **Bahasa**: JavaScript · TypeScript · Python · PHP · Go · Rust · Java · Kotlin · C# · Ruby · Elixir · Dart
+   - **Framework per bahasa**
+     - Node/JS: Express · Fastify · Hono · NestJS · Next.js · Nuxt · Remix · Astro · SvelteKit · Vite (React/Vue/Svelte) · grammY · Telegraf · discord.js · BullMQ
+     - Python: Django · FastAPI · Flask · SQLAlchemy · Celery · aiogram · python-telegram-bot · Scrapy · Streamlit · pandas
+     - PHP: Laravel · Symfony · CodeIgniter · Slim · native
+     - Go: Gin · Echo · Fiber · Chi · GORM
+     - Rust: Axum · Actix Web · Rocket · SQLx
+     - Java/Kotlin: Spring Boot · Quarkus · Ktor
+     - C#/.NET: ASP.NET Core · EF Core · Dapper · Worker Service
+     - Ruby: Rails · Sinatra · Sidekiq
+     - Elixir: Phoenix · Ecto · Oban
+     - Dart: Flutter
+   - **Ekstensi file**: `.js` · `.mjs` · `.cjs` · `.ts` · `.tsx` · `.vue` · `.svelte` · `.astro` · `.py` · `.php` · `.go` · `.rs` · `.java` · `.kt` · `.cs` · `.rb` · `.ex` · `.dart`
+   - **Database**: PostgreSQL · MySQL/MariaDB · SQLite · SQL Server · Oracle · MongoDB · Redis · ClickHouse · Cassandra · Firestore · Supabase · Neon · PlanetScale · tanpa DB
+   - **ORM/query**: Prisma · Drizzle · TypeORM · Sequelize · Knex · SQLAlchemy · Django ORM · GORM · SQLx · EF Core · Eloquent · Doctrine · raw SQL
+   - **Cache/queue**: Redis · Memcached · BullMQ · RabbitMQ · Kafka · NATS · SQS · Celery · Sidekiq · Oban · tanpa
+   - **Auth**: JWT · session cookie · OAuth2 (Google/GitHub/dll) · Better Auth · NextAuth · Clerk · Auth0 · Supabase Auth · passkey · API key · tanpa
+   - **Storage**: disk lokal · S3/MinIO/R2 · Cloudinary · Neon Object Storage
+   - **Test**: node:test · Jest · Vitest · Playwright · Pytest · PHPUnit · Go test · JUnit · xUnit · tanpa
+   - **Lint/format**: ESLint · Biome · Prettier · Ruff · Black · PHP-CS-Fixer · golangci-lint · rustfmt · tanpa
+   - **Package manager**: npm · pnpm · yarn · bun · pip/poetry/uv · composer · go mod · cargo · maven/gradle · nuget
+   - **Deploy**: VPS + systemd · Docker/Compose · Heroku · Railway · Fly.io · Render · Vercel · Netlify · Cloudflare Workers/Pages · AWS/GCP/Azure · lokal saja
+   - **CI**: GitHub Actions · GitLab CI · tanpa
+
    Lalu isi `.agents/PROYEK.MD` + `.agents/TEKNIS.MD` + `.agents/OPERASI.MD`, baru tulis kode.
+   Catat pilihan di `TEKNIS.MD` bagian atas (stack) agar sesi berikutnya tidak bertanya lagi.
 4. **Baca dokumen** (path relatif root): `PROYEK.MD`, `TEKNIS.MD`, `OPERASI.MD`, `KERJA.MD`,
    `MODEL-LOG.MD`, dan `CHANGELOG.MD` **60 baris teratas** saja.
 
