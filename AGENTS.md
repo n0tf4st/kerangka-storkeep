@@ -23,9 +23,12 @@ Template kerangka Storkeep. Ganti semua `<...>` sebelum dipakai.
    Salin kerangka baku **tanpa menimpa** file yang sudah ada:
 
    ```sh
-   cp -rn "/d/web/kerangka storkeep/.agents/." .agents/
-   cp -rn "/d/web/kerangka storkeep/tools/." tools/
+   cp -rn "<folder-kerangka>/.agents/." .agents/
+   cp -rn "<folder-kerangka>/tools/." tools/
    ```
+
+   `<folder-kerangka>` = lokasi clone kerangka di mesin ini. Kalau belum diketahui, tanya user **satu kali**
+   (jangan menebak path). Di mesin ini contohnya `~/web/kerangka-storkeep`.
 
    Pemicu: `.agents/KERJA.MD` tidak ada, atau salah satu dari `PROYEK.MD` / `TEKNIS.MD` /
    `OPERASI.MD` / `CHANGELOG.MD` tidak ada. Tool `tools/lokal/model/deteksi.mjs` ikut tersalin,

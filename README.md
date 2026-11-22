@@ -5,9 +5,11 @@ Folder ini **template bersih**, bukan proyek. Cara pakai:
 ## 1. Salin ke proyek baru
 
 ```sh
-cp -r "D:/web/kerangka storkeep/." "D:/web/<proyek-baru>/"
-cd "D:/web/<proyek-baru>"
+cp -r "<folder-kerangka>/." "<folder-proyek>/"
+cd "<folder-proyek>"
 ```
+
+`<folder-kerangka>` = tempat folder kerangka ini berada di mesinmu (mis. `~/web/kerangka-storkeep`).
 
 ## 2. Siapkan git
 
@@ -60,8 +62,11 @@ git-exclude-template.txt
 ## Dipakai di perangkat lain
 
 ```sh
-git clone git@github.com:n0tf4st/kerangka-storkeep.git "D:/web/kerangka storkeep"
+git clone git@github.com:n0tf4st/kerangka-storkeep.git
+cd kerangka-storkeep
 ```
+
+Clone ke folder apa pun yang kamu mau — tidak ada path yang diwajibkan.
 
 Setelah clone, di perangkat itu:
 
