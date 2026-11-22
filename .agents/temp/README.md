@@ -1,11 +1,11 @@
 # temp
 
-Tempat skrip & output **sekali pakai**: alat bantu sementara, hasil ekspor, data uji, potongan log.
+Space for **one-off** scripts and outputs: throwaway helpers, exports, test data, log excerpts.
 
-Aturan:
+Rules:
 
-- Nama jelas: `cek-<tujuan>.mjs`, `out-<tujuan>.json`, `dump-<tujuan>.txt`.
-- **Hapus setelah selesai dipakai** — folder ini bukan gudang.
-- Jangan simpan rahasia atau data user di sini.
-- Seluruh isi folder ini tidak di-push (lihat `git-exclude-template.txt`).
-- Kalau pekerjaan yang sama dilakukan dua kali, naikkan skripnya ke `tools/lokal/<tujuan>/`.
+- Clear names: `check-<purpose>.mjs`, `out-<purpose>.json`, `dump-<purpose>.txt`.
+- **Delete after use** — this folder is not storage.
+- Never keep secrets or personal data here.
+- The whole folder is not pushed (see `git-exclude-template.txt`).
+- If the same job happens twice, promote the script to `tools/lokal/<purpose>/`.

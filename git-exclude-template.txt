@@ -1,32 +1,32 @@
-# Template .git/info/exclude (salin isi ini ke .git/info/exclude pada proyek baru).
-# Dipakai bila proyek TIDAK memakai .gitignore di repo (aturan lokal saja).
+# Copy the contents of this file into .git/info/exclude for a new project.
+# Use this when the project does not keep a .gitignore in the repo (local-only rules).
 
-# Dependensi
+# Dependencies
 node_modules/
 vendor/
 
-# Rahasia
+# Secrets
 .env
 .env.*
 !.env.example
 
-# Hasil sementara
+# Temporary output
 tmp/
 *.log
 .agents/temp/
 
-# Dokumen kerja agent — lokal saja
+# Agent working docs — local only
 .agents/
 AGENTS.md
 
-# Skema database lokal (bila tidak di-push)
+# Local database schema (when not pushed)
 db/migrations/
 db/mysql/
 
-# Tool lokal (hanya tools/produksi/ yang di-push)
+# Local tools (only tools/produksi/ is pushed)
 tools/lokal/
 
-# Deskripsi lingkungan
+# Environment descriptions
 env/
 
 # OS

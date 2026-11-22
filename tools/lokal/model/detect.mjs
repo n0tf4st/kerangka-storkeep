@@ -221,7 +221,7 @@ function modelCopilot(jalur, sekarang) {
   const segar = statSync(jalur).mtimeMs;
 
   if (!masihSegar(segar, sekarang)) {
-    catatan.push(`copilot dilewati: jejak ${Math.round((sekarang - segar) / 3_600_000)} jam`);
+    catatan.push(`copilot skipped: ${Math.round((sekarang - segar) / 3_600_000)}h old`);
     return null;
   }
 
@@ -276,7 +276,7 @@ export function sqliteTersedia() {
 
 function bacaSqlite(jalur, kode) {
   if (!sqliteTersedia()) {
-    catatan.push(`node:sqlite tidak tersedia di Node ${process.versions.node} — sumber ${jalur.split(/[\\/]/).pop()} dilewati`);
+    catatan.push(`node:sqlite unavailable on Node ${process.versions.node} — source ${jalur.split(/[\\/]/).pop()} skipped`);
     return null;
   }
 
@@ -315,7 +315,7 @@ function modelRouter(jalur, sekarang) {
   if (Number.isNaN(waktu)) return null;
 
   if (!masihSegar(waktu, sekarang)) {
-    catatan.push(`usageHistory 9router dilewati: ${Math.round((sekarang - waktu) / 3_600_000)} jam`);
+    catatan.push(`usageHistory 9router skipped: ${Math.round((sekarang - waktu) / 3_600_000)}h old`);
     return null;
   }
 
@@ -360,7 +360,7 @@ function modelZed(jalur, sekarang) {
   const waktu = Date.parse(data.diperbarui ?? '');
 
   if (!Number.isNaN(waktu) && !masihSegar(waktu, sekarang)) {
-    catatan.push(`thread Zed dilewati: ${Math.round((sekarang - waktu) / 3_600_000)} jam`);
+    catatan.push(`Zed thread skipped: ${Math.round((sekarang - waktu) / 3_600_000)}h old`);
     return null;
   }
 
@@ -567,7 +567,7 @@ function sisipkan(isi, tanggal, barisBaru) {
   return garis.join('\n');
 }
 
-export function catatSesi({ model, platform, catatan = 'sesi baru (deteksi otomatis)' }) {
+export function catatSesi({ model, platform, catatan = 'new session (auto-detected)' }) {
   const { tanggal, jam } = waktuWib();
   const barisBaru = `- ${jam} — [${platform ?? '-'}] ${catatan} — Model: ${model}`;
 
@@ -582,23 +582,23 @@ export function catatSesi({ model, platform, catatan = 'sesi baru (deteksi otoma
         .some((satu) => satu.trim().startsWith(`- ${jam} —`) && satu.includes(`Model: ${model}`));
 
       if (sudahAda) {
-        return { berhasil: true, dilewati: true, pesan: `dilewati   : entri ${jam} WIB sudah ada` };
+        return { berhasil: true, dilewati: true, pesan: `skipped    : entry ${jam} WIB already exists` };
       }
     } else {
       mkdirSync('.agents', { recursive: true });
       isi = [
         '# MODEL-LOG',
         '',
-        'Catatan sesi model per proyek. Format: `- HH:MM — [platform] keterangan — Model: <nama>`.',
+        'Session & model log. Format: `- HH:MM — [platform] note — Model: <name>`.',
         '',
         '---',
       ].join('\n');
     }
 
     writeFileSync(JALUR_LOG, sisipkan(isi, tanggal, barisBaru), 'utf8');
-    return { berhasil: true, dilewati: false, pesan: `tercatat   : ${JALUR_LOG} — ${tanggal} ${jam} WIB` };
+    return { berhasil: true, dilewati: false, pesan: `recorded   : ${JALUR_LOG} — ${tanggal} ${jam} WIB` };
   } catch (err) {
-    return { berhasil: false, dilewati: false, pesan: `gagal catat: ${err.message}` };
+    return { berhasil: false, dilewati: false, pesan: `write failed: ${err.message}` };
   }
 }
 
@@ -606,9 +606,9 @@ function tampil(info, aplikasi, semua) {
   console.log(`model    : ${info.model}`);
   console.log(`provider : ${info.provider ?? '-'}`);
   console.log(`platform : ${platformAkhir(info, aplikasi)}`);
-  console.log(`sumber   : ${info.sumber}`);
+  console.log(`source   : ${info.sumber}`);
 
-  if (aplikasi) console.log(`aplikasi : ${aplikasi}`);
+  if (aplikasi) console.log(`host app : ${aplikasi}`);
 
   const unik = [];
 
@@ -618,17 +618,17 @@ function tampil(info, aplikasi, semua) {
   }
 
   if (unik.length > 1) {
-    console.log('riwayat  :');
+    console.log('history  :');
     for (const satu of unik) console.log(`  - ${pecahModel(satu).model}`);
   }
 
   if (catatan.length > 0) {
-    console.log('catatan  :');
+    console.log('notes    :');
     for (const satu of catatan) console.log(`  - ${satu}`);
   }
 
   if (semua) {
-    console.log('kandidat :');
+    console.log('candidates:');
     for (const satu of semua) {
       console.log(`  - ${satu.model} (${satu.provider ?? '-'} · ${satu.platform ?? '-'} · ${satu.sumber})`);
     }
@@ -640,8 +640,8 @@ export function jalankan(argv = process.argv) {
   const daftar = urutkan(kumpulkan(), aplikasi);
 
   if (daftar.length === 0) {
-    console.error('❌ model tidak terdeteksi — set env AGENT_MODEL=<nama model>');
-    for (const satu of catatan) console.error(`   catatan: ${satu}`);
+    console.error('❌ model not detected — set env AGENT_MODEL=<model name>');
+    for (const satu of catatan) console.error(`   note: ${satu}`);
     return 2;
   }
 

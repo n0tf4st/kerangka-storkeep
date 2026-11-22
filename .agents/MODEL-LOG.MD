@@ -1,20 +1,20 @@
 # MODEL-LOG
 
-Catatan sesi model per proyek. Format: `- HH:MM — [platform] keterangan — Model: <nama>`.
+Session & model log per project. Format: `- HH:MM — [platform] note — Model: <name>`.
 
-Disusun per bulan (terbaru di atas) → per tanggal (terbaru di atas).
+Grouped by month (newest first) → by date (newest first).
 
-Aturan: catat HANYA saat kejadian — sesi baru / ganti model / ganti tanggal. Sesi baru tetap dicatat walau modelnya sama. Jangan duplikat sesi yang sama.
+Rule: record only on events — new session / model switch / new date. A new session is recorded even when the model is unchanged. Never duplicate the same session.
 
-Bisa dibuat otomatis: `node tools/lokal/model/deteksi.mjs --catat` (menambah entri "sesi baru" di tanggal hari ini).
-Bila tool gagal menulis (exit ≠ 0), agent mencatat manual di file ini.
+Automatic: `node tools/lokal/model/detect.mjs --catat` (adds a "new session" entry for today).
+If the tool cannot write (exit ≠ 0), the agent records it here manually.
 
-Bulan lalu: `arsip/dokumen-lama/MODEL-LOG-<tahun>-<bulan>.md`.
+Previous months: `archive/old-docs/MODEL-LOG-<year>-<month>.md`.
 
 ---
 
-## `<YYYY>` — `<Bulan>`
+## `<YYYY>` — `<Month>`
 
 ### `<YYYY-MM-DD>`
 
-- `<HH:MM>` — [`<Platform>`] sesi baru — Model: `<nama>`
+- `<HH:MM>` — [`<Platform>`] new session — Model: `<name>`

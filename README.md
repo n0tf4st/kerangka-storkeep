@@ -1,17 +1,17 @@
-# Kerangka Proyek Storkeep
+# Storkeep Project Template
 
-Folder ini **template bersih**, bukan proyek. Cara pakai:
+This folder is a **clean template**, not a project. How to use it:
 
-## 1. Salin ke proyek baru
+## 1. Copy into a new project
 
 ```sh
-cp -r "<folder-kerangka>/." "<folder-proyek>/"
-cd "<folder-proyek>"
+cp -r "<template-dir>/." "<project-dir>/"
+cd "<project-dir>"
 ```
 
-`<folder-kerangka>` = tempat folder kerangka ini berada di mesinmu (mis. `~/web/kerangka-storkeep`).
+`<template-dir>` = where this template lives on your machine (e.g. `~/web/storkeep-template`).
 
-## 2. Siapkan git
+## 2. Set up git
 
 ```sh
 git init
@@ -19,63 +19,65 @@ cp git-exclude-template.txt .git/info/exclude
 rm git-exclude-template.txt
 ```
 
-## 3. Jalankan sesi pertama
+## 3. Run the first session
 
-Buka proyek di editor, lalu minta agent:
+Open the project in your editor and tell the agent:
 
-> "Baca AGENTS.md, lalu tanya saya model, jenis proyek, framework, ekstensi file, database, dan target deploy."
+> "Read AGENTS.md, then ask me the model and the stack questions."
 
-Agent akan:
-1. `node tools/lokal/model/deteksi.mjs --json` — deteksi model (atau tanya bila gagal).
-2. Menanyakan jenis proyek, framework, ekstensi, database, deploy **sekaligus**.
-3. Mengisi `PROYEK.MD`, `TEKNIS.MD`, `OPERASI.MD` sebelum menulis kode.
-4. Membuat `src/`, `tests/`, tool sesuai stack, lalu mencatat di `CHANGELOG.MD`.
+The agent will:
+1. `node tools/lokal/model/detect.mjs --catat` — detect the model (or ask if it fails) and log it.
+2. Ask the **language** question (default: EN) and the **stack** questions from `.agents/STACK.MD`.
+3. Fill `PROJECT.MD`, `TECHNICAL.MD`, `OPERATIONS.MD` before writing code.
+4. Create `src/`, `tests/`, and tools that match the chosen stack, then record the first changelog entry.
 
-## Isi kerangka
+## What's inside
 
 ```
-AGENTS.md                 aturan kerja (wajib dibaca agent)
+AGENTS.md                 working rules (the agent must read it)
+MIGRATION.md              procedure for cleaning up older projects
+README.md                 this file
+LICENSE                   MIT
+.env.example              env template covering many stacks
+git-exclude-template.txt  copy to .git/info/exclude
+.gitattributes            forces LF, avoids CRLF diff noise
 .agents/
-├── PROYEK.MD             apa & kenapa
-├── TEKNIS.MD             struktur, command/route, DB
-├── OPERASI.MD            lingkungan, env, deploy
-├── KERJA.MD              kasus, rencana, sesi & model
-├── CHANGELOG.MD          riwayat (panduan format di kepala file)
-├── sampel/README.md      bahan reproduksi bug
-├── arsip/                (dibuat saat perlu)
-└── temp/                 skrip sekali pakai (hapus setelah dipakai)
-tools/lokal/model/
-├── deteksi.mjs           deteksi model + provider + aplikasi sesi
-└── uji-deteksi.mjs       tes tool deteksi
-.env.example
-git-exclude-template.txt
+├── PROJECT.MD            what & why
+├── TECHNICAL.MD          stack, layout, commands/routes, DB
+├── OPERATIONS.MD         environments, env, deploy
+├── WORK.MD               cases, roadmap, multi-agent
+├── MODEL-LOG.MD          session & model log (automatic)
+├── CHANGELOG.MD          history (format rules in AGENTS.md)
+├── STACK.MD              stack catalogue (read only when undecided)
+├── samples/README.md     bug reproduction material
+└── temp/README.md        one-off scripts (delete after use)
+tools/lokal/model/        detect.mjs (detect + log model), detect.test.mjs
+tools/lokal/structure/    check.mjs (structure guard)
 ```
 
-## Prinsip yang sudah tertanam
+## Principles baked in
 
-- Model dicatat otomatis (tidak perlu tanya bila tool berhasil).
-- Satu fakta satu tempat: tidak ada dokumen duplikat.
-- Changelog: header versi sekali tulis, poin `A.`/`A.1.`, model + jam WIB per poin.
-- Rahasia hanya di `env/` atau dashboard platform — tidak di `.agents/` dan tidak di kode.
-- Tool dipakai ulang, bukan skrip sementara berulang.
+- The model is logged automatically (no manual question when the tool succeeds).
+- One fact, one place: no duplicated documents.
+- Changelog: single immutable version header, points `A.`/`A.1.`, model + WIB time per point.
+- Secrets only in `env/` or the platform dashboard — never in `.agents/` or code.
+- Tools are reused, not rewritten as throwaway scripts.
 
-## Dipakai di perangkat lain
+## Using it on another device
 
 ```sh
 git clone git@github.com:n0tf4st/kerangka-storkeep.git
 cd kerangka-storkeep
 ```
 
-Clone ke folder apa pun yang kamu mau — tidak ada path yang diwajibkan.
+Then, on that machine:
 
-Setelah clone, di perangkat itu:
+1. `node tools/lokal/model/detect.mjs --catat` — verify the tool works and log the session (Node 20+ required).
+2. Open a new project, copy `AGENTS.md` (and bootstrap `.agents/` via step 2 inside it).
+3. Tell the agent: _"Read AGENTS.md, then ask me the model and stack questions."_
 
-1. `node tools/lokal/model/deteksi.mjs --catat` — memastikan tool jalan dan mencatat sesi (butuh Node 20+).
-2. Buka proyek baru, salin `AGENTS.md` (dan bootstrap `.agents/` lewat langkah 2 di dalamnya).
-3. Minta agent: _"Baca AGENTS.md, lalu tanya saya model, jenis proyek, framework, ekstensi file, database, dan target deploy."_
+No credentials are needed to use the template — the detector only reads local editor session trails.
 
-Tidak perlu kredensial apa pun untuk memakai kerangka — alat deteksi model hanya membaca jejak sesi editor di mesin setempat.
+## License
 
-## Lisensi
-
-MIT — lihat `LICENSE`. Template ini bebas dipakai, diubah, dan dibagikan.
+MIT — see `LICENSE`. Free to use, modify, and share.

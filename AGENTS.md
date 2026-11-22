@@ -1,146 +1,123 @@
-# Aturan Kerja — <NAMA PROYEK>
+# Working Rules — <PROJECT NAME>
 
-Template kerangka Storkeep. Ganti semua `<...>` sebelum dipakai.
+Storkeep template. Replace every `<...>` before use.
 
-## 0. Awal sesi (WAJIB, sebelum kerja apa pun)
+## 0. Session start (MANDATORY, before any work)
 
-1. **Deteksi model otomatis — TANYA hanya bila gagal**: jalankan `node tools/lokal/model/deteksi.mjs --catat` (tambahkan `--json` bila perlu keluaran mentah).
-   Tool membaca jejak sesi editor di mesin ini, mencetak `model`, `provider`, `platform`, `sumber`, dan **langsung menulis** entri ke `.agents/MODEL-LOG.MD`.
-   - exit `0` → **pakai hasilnya, JANGAN tanya user**
-   - exit `2` (tidak terdeteksi) → baru tanya: _"Model apa yang saya pakai untuk sesi ini?"_
-   - exit `1` (gagal mencatat) → catat manual di `.agents/MODEL-LOG.MD`
-   - Sumber yang dibaca: `copilot session-state` (`events.jsonl`), `9router usageHistory`, `Zed threads`
-     (`threads.db`), `opencode session` (`opencode.db`), env `AGENT_MODEL` (prioritas tertinggi).
-   - **JANGAN** menyalin nama model dari entri lama di `.agents/KERJA.MD` atau `CHANGELOG.MD`
-     (bisa jadi model sesi sebelumnya).
-   - Setelah diketahui (dari tool maupun jawaban user), **langsung catat** di `.agents/MODEL-LOG.MD`
-     — otomatis lewat `--catat`; manual hanya bila tool gagal.
-     Bila `.agents/` belum ada, jalankan **langkah 2 (bootstrap)** dulu baru mencatat.
-   - **Ganti model di tengah sesi**: jika user menyebut "ganti model" / "model berubah" /
-     "sekarang pakai model X", jalankan ulang tool deteksi; bila hasilnya berubah, catat entri baru.
-     Tanya user HANYA bila tool gagal mendeteksi.
-2. **Bootstrap struktur bila `.agents/` belum ada**: proyek baru kadang hanya berisi `AGENTS.md` saja.
-   Salin kerangka baku **tanpa menimpa** file yang sudah ada:
+1. **Detect the model automatically — ask only if it fails**: run `node tools/lokal/model/detect.mjs --catat`
+   (add `--json` for raw output). The tool prints `model`, `provider`, `platform`, `source` and writes the
+   entry directly to `.agents/MODEL-LOG.MD`.
+   - exit `0` → use the result, **DO NOT ask the user**
+   - exit `2` (not detected) → ask: _"Which model am I using for this session?"_
+   - exit `1` (write failed) → record manually in `.agents/MODEL-LOG.MD`
+   - Sources: `copilot session-state`, `9router usageHistory`, `Zed threads`, `opencode session`,
+     env `AGENT_MODEL` (highest priority).
+   - **DO NOT** copy the model name from old entries in `MODEL-LOG.MD` / `CHANGELOG.MD`.
+   - Mid-session model change: if the user says "switch model" / "now using model X", re-run the tool
+     and record a new entry when the result changes. Ask the user only if the tool fails.
+2. **Bootstrap the structure when `.agents/` is missing**: a new project may contain only `AGENTS.md`.
+   Copy the canonical skeleton **without overwriting** existing files:
 
    ```sh
-   cp -rn "<folder-kerangka>/.agents/." .agents/
-   cp -rn "<folder-kerangka>/tools/." tools/
+   cp -rn "<template-dir>/.agents/." .agents/
+   cp -rn "<template-dir>/tools/." tools/
    ```
 
-   `<folder-kerangka>` = lokasi clone kerangka di mesin ini. Kalau belum diketahui, tanya user **satu kali**
-   (jangan menebak path). Di mesin ini contohnya `~/web/kerangka-storkeep`.
-
-   Pemicu: `.agents/KERJA.MD` tidak ada, atau salah satu dari `PROYEK.MD` / `TEKNIS.MD` /
-   `OPERASI.MD` / `CHANGELOG.MD` tidak ada. Tool `tools/lokal/model/deteksi.mjs` ikut tersalin,
-   jadi deteksi model bisa langsung jalan. Untuk repo baru, salin juga
+   `<template-dir>` = where this template is cloned on this machine. If unknown, ask the user **once**
+   (never guess). Trigger: `.agents/WORK.MD` missing, or any of `PROJECT.MD` / `TECHNICAL.MD` /
+   `OPERATIONS.MD` / `CHANGELOG.MD` missing. For a new repo, also copy
    `git-exclude-template.txt` → `.git/info/exclude`.
-3. **Jika proyek masih kosong** (belum ada kode), tanya **sekaligus** — salin daftar berikut, user boleh pilih atau menyebut di luar daftar:
+3. **Language question (MANDATORY, ask in English)**: before writing code, ask:
+   _"Which language should I use for comments, docs, and user-facing text? (default: EN)"_
+   Offer: EN · ID · other. Record the answer at the top of `.agents/TECHNICAL.MD`.
+   Default is **EN** when the user does not answer.
+4. **If the project is still empty** (no code yet), ask **all at once** — read `.agents/STACK.MD`
+   for the full catalogue and copy the questions from there (project type, language, framework,
+   file extension, database, ORM, cache/queue, auth, storage, test, lint, package manager,
+   deploy, CI). Then fill `PROJECT.MD` + `TECHNICAL.MD` + `OPERATIONS.MD` before writing code.
+5. **Read the docs** (paths relative to root): `PROJECT.MD`, `TECHNICAL.MD`, `OPERATIONS.MD`,
+   `WORK.MD`, `MODEL-LOG.MD`, and only the **top 60 lines** of `CHANGELOG.MD`.
 
-   - **Jenis proyek**: bot chat (Telegram/Discord/Slack/WhatsApp) · REST/GraphQL API · web UI/SSR · CLI · worker/queue · scraper · library/SDK · desktop · mobile · IoT
-   - **Bahasa**: JavaScript · TypeScript · Python · PHP · Go · Rust · Java · Kotlin · C# · Ruby · Elixir · Dart
-   - **Framework per bahasa**
-     - Node/JS: Express · Fastify · Hono · NestJS · Next.js · Nuxt · Remix · Astro · SvelteKit · Vite (React/Vue/Svelte) · grammY · Telegraf · discord.js · BullMQ
-     - Python: Django · FastAPI · Flask · SQLAlchemy · Celery · aiogram · python-telegram-bot · Scrapy · Streamlit · pandas
-     - PHP: Laravel · Symfony · CodeIgniter · Slim · native
-     - Go: Gin · Echo · Fiber · Chi · GORM
-     - Rust: Axum · Actix Web · Rocket · SQLx
-     - Java/Kotlin: Spring Boot · Quarkus · Ktor
-     - C#/.NET: ASP.NET Core · EF Core · Dapper · Worker Service
-     - Ruby: Rails · Sinatra · Sidekiq
-     - Elixir: Phoenix · Ecto · Oban
-     - Dart: Flutter
-   - **Ekstensi file**: `.js` · `.mjs` · `.cjs` · `.ts` · `.tsx` · `.vue` · `.svelte` · `.astro` · `.py` · `.php` · `.go` · `.rs` · `.java` · `.kt` · `.cs` · `.rb` · `.ex` · `.dart`
-   - **Database**: PostgreSQL · MySQL/MariaDB · SQLite · SQL Server · Oracle · MongoDB · Redis · ClickHouse · Cassandra · Firestore · Supabase · Neon · PlanetScale · tanpa DB
-   - **ORM/query**: Prisma · Drizzle · TypeORM · Sequelize · Knex · SQLAlchemy · Django ORM · GORM · SQLx · EF Core · Eloquent · Doctrine · raw SQL
-   - **Cache/queue**: Redis · Memcached · BullMQ · RabbitMQ · Kafka · NATS · SQS · Celery · Sidekiq · Oban · tanpa
-   - **Auth**: JWT · session cookie · OAuth2 (Google/GitHub/dll) · Better Auth · NextAuth · Clerk · Auth0 · Supabase Auth · passkey · API key · tanpa
-   - **Storage**: disk lokal · S3/MinIO/R2 · Cloudinary · Neon Object Storage
-   - **Test**: node:test · Jest · Vitest · Playwright · Pytest · PHPUnit · Go test · JUnit · xUnit · tanpa
-   - **Lint/format**: ESLint · Biome · Prettier · Ruff · Black · PHP-CS-Fixer · golangci-lint · rustfmt · tanpa
-   - **Package manager**: npm · pnpm · yarn · bun · pip/poetry/uv · composer · go mod · cargo · maven/gradle · nuget
-   - **Deploy**: VPS + systemd · Docker/Compose · Heroku · Railway · Fly.io · Render · Vercel · Netlify · Cloudflare Workers/Pages · AWS/GCP/Azure · lokal saja
-   - **CI**: GitHub Actions · GitLab CI · tanpa
+## 1. Output language
 
-   Lalu isi `.agents/PROYEK.MD` + `.agents/TEKNIS.MD` + `.agents/OPERASI.MD`, baru tulis kode.
-   Catat pilihan di `TEKNIS.MD` bagian atas (stack) agar sesi berikutnya tidak bertanya lagi.
-4. **Baca dokumen** (path relatif root): `PROYEK.MD`, `TEKNIS.MD`, `OPERASI.MD`, `KERJA.MD`,
-   `MODEL-LOG.MD`, dan `CHANGELOG.MD` **60 baris teratas** saja.
+Default EN. Follow the language chosen at session start (step 3) for comments, docs, and user-facing text.
 
-## 1. Bahasa
+## 2. Docs in `.agents/`
 
-Indonesia untuk komunikasi, komentar dokumen, dan teks yang dilihat user. Penamaan variabel/fungsi Indonesia.
-
-## 2. Dokumen di `.agents/`
-
-| Berkas | Isi |
+| File | Content |
 |---|---|
-| `PROYEK.MD` | apa & kenapa: tujuan, peran, batasan, privasi |
-| `TEKNIS.MD` | struktur direktori, command/route, skema DB, status modul |
-| `OPERASI.MD` | lingkungan, env, deploy, keamanan, tool, troubleshooting |
-| `KERJA.MD` | kasus aktif, rencana, kerja multi-agent |
-| `MODEL-LOG.MD` | sesi & model per tanggal (otomatis lewat `deteksi.mjs --catat`) |
-| `CHANGELOG.MD` | riwayat perubahan (format ada di kepala file) |
-| `arsip/` | dokumen lama, kasus selesai, changelog lama |
-| `sampel/` | log chat / contoh input untuk reproduksi bug |
+| `PROJECT.MD` | what & why: goal, roles, limits, privacy |
+| `TECHNICAL.MD` | stack, directory layout, commands/routes, DB schema, module status |
+| `OPERATIONS.MD` | environments, env, deploy, security, tools, troubleshooting |
+| `WORK.MD` | active cases, roadmap, multi-agent work |
+| `MODEL-LOG.MD` | session & model log (automatic via `detect.mjs --catat`) |
+| `CHANGELOG.MD` | change history (format rules live in `AGENTS.md`) |
+| `STACK.MD` | stack catalogue — read only when the stack is undecided |
+| `archive/` | old docs, finished cases, old changelogs |
+| `samples/` | chat logs / sample input for bug reproduction |
+| `temp/` | one-off scripts and outputs (delete after use) |
 
-Aturan: satu fakta ditulis **satu tempat**. Jangan duplikasi info antar dokumen — cukup rujuk.
+Rule: one fact, one place. Do not duplicate information — reference instead.
 
 ## 3. CHANGELOG
 
-- Header: `## YYYY-MM-DD — vX.Y.Z — Model: <pengedit pertama> — HH:MM WIB` (ditulis sekali, tidak diedit lagi).
-- Poin: `- **A.** …`, anak poin `  - **A.1.** …`, tiap poin diakhiri `— Model: <nama> — HH:MM WIB`.
-- Kategori baku: ✨ Fitur Baru · 🔧 Perbaikan · 🔒 Keamanan · ⚙️ Deploy & Infra · 🎨 Desain · 📝 Dokumentasi.
-- Saat tanggal berganti: tulis sekali jalan (header + poin + keenam kategori; yang kosong `_belum ada_`).
-- Riwayat > 2 bulan → `arsip/CHANGELOG-<tahun>-<bulan>-lama.MD`.
+- Header: `## YYYY-MM-DD — vX.Y.Z — Model: <first editor> — HH:MM WIB` (written once, never edited again,
+  even if the model changes).
+- Points: `- **A.** …`, sub-points `  - **A.1.** …`; each lettered point ends with
+  `— Model: <name> — HH:MM WIB`.
+- Canonical categories: ✨ Features · 🔧 Fixes · 🔒 Security · ⚙️ Deploy & Infra · 🎨 UI/Text · 📝 Docs.
+- On a new date: write in one pass (header + existing points + all six categories; empty ones `_none yet_`).
+- History older than 2 months → `archive/CHANGELOG-<year>-<month>-old.MD`.
 
-## 4. Kasus (`KERJA.MD`)
+## 4. Cases (`WORK.MD`)
 
-- Format: `- YYYY-MM-DD HH:MM — [level] judul — status — Model: <nama>` + `Lokasi: path:baris`.
-- Level: `kritis` (rahasia/data bocor) · `urgent` (fitur utama rusak) · `casual` (rapi-rapi).
-- Alur: catat 🔴 → minta persetujuan → 🟡 kerjakan → ✅ arsip ke `.agents/arsip/kasus-selesai/`.
-- Mencatat tidak perlu izin; mengerjakan perlu.
+- Format: `- YYYY-MM-DD HH:MM — [level] title — status — Model: <name>` + `Location: path:line`.
+- Levels: `critical` (secret/data leak) · `urgent` (main feature broken) · `casual` (cleanup).
+- Flow: record 🔴 → ask approval → 🟡 work → ✅ archive to `.agents/archive/cases-done/`.
+- Recording needs no permission; working does.
 
-## 5. Rahasia
+## 5. Secrets
 
-- Hanya di `env/` (di-ignore) atau dashboard platform (Config Vars / panel).
-- Dilarang di `.agents/`, dokumen `.MD`, kode, atau log. Saat debug cetak nama variabel saja.
-- Salin `git-exclude-template.txt` ke `.git/info/exclude` pada proyek baru.
+- Only in `env/` (git-ignored) or the platform dashboard (Config Vars / control panel).
+- Never in `.agents/`, `.MD` docs, code, or logs. When debugging, print the variable name only.
+- Copy `git-exclude-template.txt` into `.git/info/exclude` for new repos.
 
-## 6. Kode
+## 6. Code
 
-- **Tanpa komentar** di file kode; alasan desain masuk `.agents/TEKNIS.MD`.
-- Tanpa `console.log` debug yang tertinggal — pakai logger berlevel.
-- Tanpa `TODO`/`FIXME` di kode — catat di `KERJA.MD`.
-- Validasi input, escaping output, batas ukuran payload, timeout untuk panggilan jaringan.
-- Handler wajib aman bila event terkirim ulang (idempoten).
+- **No comments** in source files; design rationale belongs in `.agents/TECHNICAL.MD`.
+- No leftover debug `console.log` — use a leveled logger.
+- No `TODO`/`FIXME` in code — record them in `WORK.MD`.
+- Validate input, escape output, cap payload size, set timeouts on network calls.
+- Handlers must be safe when the same event is delivered twice (idempotent).
 
-## 7. Tool
+## 7. Tools
 
-- Cek `tools/` sebelum menulis skrip sementara.
-- `tools/produksi/` = ikut di-push (dipakai build/job). `tools/lokal/` = tidak di-push.
-- Skrip sekali pakai: `.agents/temp/`, hapus setelah dipakai.
+- Check `tools/` before writing a temporary script.
+- `tools/produksi/` = pushed (used by builds/jobs). `tools/lokal/` = not pushed.
+- One-off scripts: `.agents/temp/`, deleted after use.
 
 ## 8. Git
 
-- Commit bahasa Indonesia, prefix `feat: ` / `fix: ` / `refactor: ` / `docs: ` / `chore: ` / `deploy: `.
-- Satu commit = satu maksud. Dilarang `push --force` ke `main`.
-- Commit/push setelah build & test lolos; deploy/aksi produksi wajib konfirmasi user.
+- Commit messages in English, prefixes `feat: ` / `fix: ` / `refactor: ` / `docs: ` / `chore: ` / `deploy: `.
+- One commit = one intent. Never `push --force` to `main`.
+- Commit/push after build & tests pass; deploys and production actions require user confirmation.
 
-## 9. Penutupan sesi
+## 9. Session close
 
-Sebutkan: kredensial yang sebaiknya dirotasi (bila sesi banyak menyentuh env/deploy), dan status lingkungan
-(staging menyala/dimatikan) — tanpa mematikan apa pun tanpa perintah eksplisit user.
+Mention: credentials worth rotating (when the session touched env/deploy) and the state of each environment
+(staging on/off) — never shut anything down without an explicit user request.
 
-## 10. Kebersihan struktur (penjaga)
+## 10. Structure guard
 
-- `.agents/` hanya boleh berisi 5 dokumen inti + `arsip/`, `sampel/`, `temp/`. Dokumen lain → `arsip/dokumen-lama/`.
-- Kredensial tidak pernah di `.agents/` — pakai `env/` atau dashboard platform.
-- Tidak ada file sementara di root proyek (`_tmp_*`, `*.bak`, `*.old`, `*~`). Semua ke `.agents/temp/`, lalu hapus.
-- Jalankan pemeriksa kapan pun struktur terasa melenceng:
+- `.agents/` may only contain the 6 core docs plus `STACK.MD`, `archive/`, `samples/`, `temp/`.
+  Anything else → `archive/old-docs/`.
+- Credentials never live in `.agents/` — use `env/` or the platform dashboard.
+- No stray temp files in the project root (`_tmp_*`, `*.bak`, `*.old`, `*~`). Put them in `.agents/temp/`, then delete.
+- Run the checker whenever the structure feels off:
 
   ```sh
-  node tools/lokal/kebersihan/cek.mjs
+  node tools/lokal/structure/check.mjs
   ```
 
-  Exit `0` bersih · `1` ada temuan (disebutkan per baris) · `2` tidak bisa jalan.
-- Proyek lama yang belum rapi: ikuti `MIGRASI.md` (pindah, bukan hapus).
+  Exit `0` clean · `1` findings (listed per line) · `2` cannot run.
+- Older projects that are still messy: follow `MIGRATION.md` (move, never delete).

@@ -1,38 +1,29 @@
-# CHANGELOG — <NAMA PROYEK>
+# CHANGELOG — <PROJECT NAME>
 
-**Panduan format** (ringkas — detail aturannya di `AGENTS.md`, bagian Changelog):
+Format rules: `AGENTS.md` (section 3). Old history: `archive/CHANGELOG-<year>-<month>-old.MD`.
 
-- **Kategori, urut**: ✨ Fitur Baru · 🔧 Perbaikan · 🔒 Keamanan · ⚙️ Deploy & Infra · 🎨 Desain · 📝 Dokumentasi
-- **Header versi**: `## YYYY-MM-DD — vX.Y.Z — Model: <pengedit pertama> — HH:MM WIB` — ditulis **sekali**, tidak diedit lagi walau model berganti
-- **Poin**: `- **A.** …`, `- **B.** …`; anak poin `  - **A.1.** …`, `  - **A.2.** …`
-- **Akhiran tiap poin**: `— Model: <nama> — HH:MM WIB` (24 jam, WIB)
-- **Kerangka**: saat tanggal berganti tulis sekali jalan — header + poin yang sudah ada + keenam kategori; kategori kosong diisi `_belum ada_`
-- **Arsip**: entri lama > 2 bulan dipindah ke `arsip/CHANGELOG-<tahun>-<bulan>-lama.MD`
+## YYYY-MM-DD — v0.1.0 — Model: <name> — HH:MM WIB
 
-Riwayat lama: belum ada.
+#### ✨ Features
 
-## YYYY-MM-DD — v0.1.0 — Model: <nama> — HH:MM WIB
+_none yet_
 
-#### ✨ Fitur Baru
+#### 🔧 Fixes
 
-_belum ada_
+_none yet_
 
-#### 🔧 Perbaikan
+#### 🔒 Security
 
-_belum ada_
-
-#### 🔒 Keamanan
-
-_belum ada_
+_none yet_
 
 #### ⚙️ Deploy & Infra
 
-_belum ada_
+_none yet_
 
-#### 🎨 Desain
+#### 🎨 UI/Text
 
-_belum ada_
+_none yet_
 
-#### 📝 Dokumentasi
+#### 📝 Docs
 
-_belum ada_
+_none yet_
