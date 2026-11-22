@@ -1,0 +1,34 @@
+# Template .git/info/exclude (salin isi ini ke .git/info/exclude pada proyek baru).
+# Dipakai bila proyek TIDAK memakai .gitignore di repo (aturan lokal saja).
+
+# Dependensi
+node_modules/
+vendor/
+
+# Rahasia
+.env
+.env.*
+!.env.example
+
+# Hasil sementara
+tmp/
+*.log
+.agents/temp/
+
+# Dokumen kerja agent — lokal saja
+.agents/
+AGENTS.md
+
+# Skema database lokal (bila tidak di-push)
+db/migrations/
+db/mysql/
+
+# Tool lokal (hanya tools/produksi/ yang di-push)
+tools/lokal/
+
+# Deskripsi lingkungan
+env/
+
+# OS
+.DS_Store
+Thumbs.db
